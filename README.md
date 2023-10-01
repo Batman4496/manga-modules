@@ -14,6 +14,10 @@ A small package for scarping mangas from different sources. Using
 - Web, Desktop, Mobile app (maybe)
 
 
+## Run
+
+`flask --app main --debug run`
+
 ## Contributing
 
 HO! You want to contribute?!
