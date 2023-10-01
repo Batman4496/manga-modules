@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <title>Docs</title>
+</head>
+<body class="bg-black p-0 m-0">
+  <main class="flex items-center justify-center p-5 md:p-12 bg-slate-950 text-white min-h-screen min-w-screen">
+    <!-- CENTERED DIV!?!! MASAKA!!! -->
+    <div class="flex flex-col gap-3 border-[1px] rounded-md shadow-xl p-5">
+      <div class="pb-5 border-b-2 border-white flex flex-row justify-between">
+        <h1 class="text-xl">Hello World 😊!</h1>
+        <div class="flex flex-row gap-2">
+          <a href="https://github.com/Batman4496"><i class="bi bi-github"></i></a>
+          <a href="https://discord.com/users/459250601314746375"><i class="bi bi-discord"></i></a>
+        </div>
+      </div>
+      <div class="pb-5 border-b-2 border-white">
+        <h1>Routes</h1>
+        <ol>
+  
+          <li>
+            <code 
+              class="bg-slate-300 
+                    text-black hover:text-green-500 
+                    hover:bg-transparent 
+                    transition-all"
+            >
+              <a href="/1/search/naruto">/{source_id}/search/{search_keyword}</a>
+            </code>: For searching a manga
+          </li>
+  
+          <li>
+            <code 
+              class="bg-slate-300 
+                    text-black hover:text-green-500 
+                    hover:bg-transparent 
+                    transition-all"
+            >
+              <a href="/1/manga?url=https://readmangabat.com/read-sl358578">/{source_id}/manga?url={manga_url}</a>
+            </code>: For fetching manga details
+          </li>
+  
+          <li>
+            <code 
+              class="bg-slate-300 
+                    text-black hover:text-green-500 
+                    hover:bg-transparent 
+                    transition-all"
+            >
+              <a href="/1/chapter?url=https://readmangabat.com/read-sl358578-chap-0">/{source_id}/chapter?url={chapter_url}</a>
+            </code>: For fetching chapter data
+          </li>
+        </ol>
+      </div>
+      
+      <div class="pb-5 border-b-2 border-white">
+        <h1>Important!</h1>
+        <p><b class="text-blue-500">General:</b> You can only use urls of mangas/chapters etc. same as the source. The source id helps in looking up which source we are going to scrape. The url and source MUST MATCH!</p>  
+        <p><b class="text-blue-500">Pages:</b> The page links won't work by directly opening them. You have to pass a <code class="text-red-500">referer</code> header. The value of this header is the source url 
+          for example: <code>https://readmangabat.com/</code> if you are using source id 1 (i.e. Mangabat).</p>
+      </div>
+      
+      <div class="pb-5 border-b-2 border-white">
+        <h1>Sources</h1>
+        {% for source in data['sources'] %}
+          <li>
+            <code 
+              class="bg-slate-300 
+                    text-black hover:text-green-500 
+                    hover:bg-transparent 
+                    transition-all"
+            >
+              <a href="{{ source['url'] }}">{{ source['name'] }} (ID: {{ source['id'] }})</a>
+            </code>: {{ source['description'] }}
+          </li>
+        {% endfor %}
+      </div>
+      <div class="pb-5">
+        <p>You can use this in any of your projects!! If you plan on adding your own sources feel free to contibute on
+          <span class="text-green-500"><a href="https://github.com/Batman4496/manga-modules">Github</a> 💖</span>
+        </p>
+      </div>
+    </div>
+
+  </main>
+</body>
+</html>
