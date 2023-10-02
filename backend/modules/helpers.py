@@ -1,4 +1,5 @@
 import requests
+import base64
 
 def extract_data(source: list, keys: dict) -> list[dict]:
   """ Returns a new list based on old list"""
@@ -18,4 +19,4 @@ def extract_data(source: list, keys: dict) -> list[dict]:
 def get_image(url: str, referer: str):
   """ Fetch the chapter image """
   image = requests.get(url, headers={ 'referer': referer })
-  return image
+  return base64.b64encode(image.content).decode('utf-8')
