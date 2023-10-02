@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-from modules.helpers import extract_data
+from modules.helpers import extract_data, get_image
 
 REQUEST_URL = "https://readmangabat.com"
 
@@ -41,6 +41,7 @@ class MangaBat:
     left = soup.find('div', { 'class': 'story-info-left' })
     right = soup.find('div', { 'class': 'story-info-right' })
     data['image'] = left.find('img').get('src')
+    data['base_image'] = get_image(data['image'], REQUEST_URL)
     data['title'] = right.find('h1').text
     data['description'] = soup.find('div', { 'id': 'panel-story-info-description' }).text
 
@@ -80,7 +81,7 @@ class MangaBat:
       data.append({
         'page': index,
         'name': image.get('alt'),
-        'image': image.get('src') 
+        'image': image.get('src'),
       })
 
     return data

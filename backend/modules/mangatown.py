@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-from modules.helpers import extract_data
+from modules.helpers import extract_data, get_image
 
 REQUEST_URL = "https://m.mangatown.com"
 
@@ -16,7 +16,8 @@ class MangaTown:
       data.append({
         'title': ' '.join(item.get('rel')),
         'url': REQUEST_URL + item.get('href'),
-        'image': item.find('img').get('src')
+        'image': item.find('img').get('src'),
+        'base_image': get_image(item.find('img').get('src'), REQUEST_URL)
       })
 
     return data
@@ -45,6 +46,7 @@ class MangaTown:
 
     data['title'] = top.find('div', { 'class': 'title' }).text
     data['image'] = top.find('img').get('src')
+    data['base_image'] =  get_image(data['image'], REQUEST_URL)
 
     paras = top.find('div', { 'class': 'detail-info' }).find_all('p')
     for para in paras:
@@ -93,7 +95,7 @@ class MangaTown:
       data.append({
         'page': option.text,
         'title': s.find('div', { 'class': 'title' }).text,
-        'url': 'https:' + s.find('img', { 'id': "image" }).get('src')
+        'url': 'https:' + s.find('img', { 'id': "image" }).get('src'),
       })
 
     return data
