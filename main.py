@@ -19,7 +19,7 @@ def index():
    })
 
 @app.route("/<int:source>/search/<name>", methods=['GET'])
-def search(name: str, source: int):
+def search(name, source):
   m = MANGA_MODULES[source]
   return {
     'source': m['referer'],
@@ -27,7 +27,7 @@ def search(name: str, source: int):
   }
 
 @app.route("/<int:source>/manga", methods=['GET'])
-def manga(source: int):
+def manga(source):
     args = request.args
     url = args.get('url')
 
@@ -41,7 +41,7 @@ def manga(source: int):
     }
 
 @app.route("/<int:source>/chapter", methods=['GET'])
-def chapter(source: int):
+def chapter(source):
     args = request.args
     url = args.get('url')
 
@@ -64,3 +64,6 @@ def chapter(source: int):
   
 #   page = get_image(url, MANGA_MODULES[source]['referer'])
 #   return page
+
+if __name__ == '__main__':
+   app.run('0.0.0.0')
