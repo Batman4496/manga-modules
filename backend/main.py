@@ -26,7 +26,8 @@ def index():
 def search(name: str, source: int):
   m = MANGA_MODULES[source]
   return {
-    'source': m['referer'],
+    'source': source,
+    'source_url': m['referer'],
     'result': m['module'].search(name)
   }
 
@@ -40,7 +41,8 @@ def manga(source: int):
     
     m = MANGA_MODULES[source]
     return {
-      'source': m['referer'],
+      'source': source,
+      'source_url': m['referer'],
       'result': m['module'].get_manga(url)
     }
 
@@ -54,7 +56,8 @@ def chapter(source: int):
     
     m = MANGA_MODULES[source]
     return {
-      'source': m['referer'],
+      'source': source,
+      'source_url': m['referer'],
       'result': m['module'].get_chapter(url)
     }
 
