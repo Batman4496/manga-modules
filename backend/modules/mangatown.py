@@ -100,3 +100,20 @@ class MangaTown:
 
     return data
     
+
+  def get_hot_mangas(self) -> list[dict]:
+    res = requests.get(f"{REQUEST_URL}/hot").text
+    soup = BeautifulSoup(res, 'lxml')
+    container = soup.find('ul', { 'class': 'post-list' })
+    items = container.find_all('a', { 'class': 'manga-cover' })
+    
+    data = []
+    for item  in items:
+      data.append({
+        'title': ' '.join(item.get('rel')),
+        'url': REQUEST_URL + item.get('href'),
+        'image': item.find('img').get('src'),
+        'base_image': get_image(item.find('img').get('src'), REQUEST_URL)
+      })
+
+    return data

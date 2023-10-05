@@ -8,6 +8,22 @@ app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
+
+
+@app.route('/sources', methods=['GET'])
+def sources():
+   return {
+      'sources': [
+        { 
+          'id': k,
+          'name': MANGA_MODULES[k]['name'],
+          'description': MANGA_MODULES[k]['description'],
+          'url': MANGA_MODULES[k]['referer'],
+        }
+        for k in MANGA_MODULES
+      ]
+   }
+
 @app.route('/', methods=['GET'])
 def index():
    return render_template('index.html', data={
@@ -29,6 +45,15 @@ def search(name: str, source: int):
     'source': source,
     'source_url': m['referer'],
     'result': m['module'].search(name)
+  }
+
+@app.route("/<int:source>/hot-mangas", methods=['GET'])
+def hot_mangas(source: int):
+  m = MANGA_MODULES[source]
+  return {
+    'source': source,
+    'source_url': m['referer'],
+    'result': m['module'].get_hot_mangas()
   }
 
 @app.route("/<int:source>/manga", methods=['GET'])

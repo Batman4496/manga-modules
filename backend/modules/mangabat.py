@@ -85,3 +85,19 @@ class MangaBat:
       })
 
     return data
+
+  def get_hot_mangas(self) -> list[dict]:
+    data = []
+    res = requests.get(REQUEST_URL + '/manga-list-all?type=topview').text
+    soup = BeautifulSoup(res, 'lxml')
+    items = soup.find_all('a', { 'class': 'item-img bookmark_check' })
+    
+    for item in items:
+      data.append({
+        'base_image': get_image(item.find('img').get('src'), REQUEST_URL),
+        'image': item.find('img').get('src'),
+        'title': item.get('title'),
+        'url': item.get('href')
+      })
+
+    return data
