@@ -1,3 +1,4 @@
+import { SourceProvider } from '@/context/source-provider'
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
@@ -15,8 +16,12 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="en" className="dark">
+      <body className={inter.className + " dark:bg-black dark:text-white bg-white text-black"}>
+        <SourceProvider>
+          {children}
+        </SourceProvider>
+      </body>
     </html>
   )
 }

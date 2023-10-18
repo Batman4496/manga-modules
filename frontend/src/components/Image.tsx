@@ -19,7 +19,7 @@ function Image(props: ImageProps) {
   } = props;
   
   const [url, setUrl] = useState<string>(IMAGES.LOADING);
-  const p = fill ? { fill: true } : { height: 300, width: 200 }
+  const p = fill ? "h-full w-full" : "h-300 w-200";
 
   useEffect(() => {
     if (!source) {
@@ -33,11 +33,12 @@ function Image(props: ImageProps) {
   }, [src, source]);
 
   return (
-    <NextImage
-      src={url}
-      alt={alt ?? ''}
-      { ...p }
-    />
+    <div className={`object-fit ${p}`}>
+      <img
+        src={url}
+        alt={alt ?? ''}
+      />
+    </div>
   );
 }
 
